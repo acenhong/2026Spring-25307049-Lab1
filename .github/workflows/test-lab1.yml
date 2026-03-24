@@ -1,0 +1,27 @@
+name: Lab1 Check
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Check sorting.py exists
+      run: |
+        if [ ! -f sorting.py ]; then
+          echo "Error: sorting.py not found!"
+          exit 1
+        fi
+        python sorting.py
